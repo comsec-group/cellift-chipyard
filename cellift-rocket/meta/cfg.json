@@ -1,0 +1,8 @@
+{
+    "bootrom_elf": "bootrom/bootrom.rv64.elf",
+    "lead_cycles": 0,
+    "toplevel": "top_tiny_soc",
+    "trace_top": "top_tiny_soc.i_mem_top",
+    "verilatorprefix": "rocket",
+    "memorywordsize": 64
+}

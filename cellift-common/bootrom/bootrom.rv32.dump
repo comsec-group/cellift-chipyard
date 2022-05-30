@@ -1,0 +1,29 @@
+
+bootrom.rv32.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .data_padding:
+
+00010000 <.data_padding>:
+	...
+
+Disassembly of section .text.start:
+
+00010040 <_start>:
+   10040:	7c105073          	csrwi	0x7c1,0
+   10044:	80000437          	lui	s0,0x80000
+   10048:	f1402573          	csrr	a0,mhartid
+   1004c:	00000597          	auipc	a1,0x0
+   10050:	03458593          	addi	a1,a1,52 # 10080 <_dtb>
+   10054:	00040067          	jr	s0 # 80000000 <_dtb+0x7ffeff80>
+
+Disassembly of section .text.hang:
+
+00010058 <_hang>:
+   10058:	7c105073          	csrwi	0x7c1,0
+   1005c:	f1402573          	csrr	a0,mhartid
+   10060:	00000597          	auipc	a1,0x0
+   10064:	02058593          	addi	a1,a1,32 # 10080 <_dtb>
+   10068:	30405073          	csrwi	mie,0
+   1006c:	10500073          	wfi
+   10070:	ffdff06f          	j	1006c <_hang+0x14>
