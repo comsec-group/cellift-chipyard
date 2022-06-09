@@ -174,39 +174,3 @@ STATISTICS_TARGETS=$(patsubst %,statistics/%.log, $(TARGET_NAMES))
 
 $(STATISTICS_TARGETS): statistics/%.log: $(CELLIFT_YS)/statistics.ys.tcl generated/out/vanilla.sv | statistics
 	DECOMPOSE_MEMORY=1 VERILOG_INPUT=$(word 2,$^) INSTRUMENTATION=$* TOP_MODULE=$(TOP_MODULE) $(CELLIFT_META_ROOT)/resourcewrapper $(RESOURCEWRAPPER_TAG) $* stat yosys -c $< -l $@
-
-#######################
-# Custom runs
-#######################
-
-YOSYS_INPUT_PATH=generated/out/vanilla.sv
-YOSYS_PYTHON_POSTPROCESSING=$(PYTHON) $(CELLIFT_PYTHON_COMMON)/expand_left_operand.py $@ $@; \
-	$(PYTHON) $(CELLIFT_PYTHON_COMMON)/expand_right_operand.py $@ $@; \
-	$(PYTHON) $(CELLIFT_PYTHON_COMMON)/compress_concats.py $@ $@; \
-	$(PYTHON) $(CELLIFT_PYTHON_COMMON)/divide_concat_into_subconcats.py $@ $@; \
-	$(PYTHON) python-scripts/deparam_mem_module_names.py $@ $@;
-
-include $(CELLIFT_DESIGN_PROCESSING_ROOT)/common/custom_run.mk
-
-#
-# Specific statistics
-#
-
-# statistics/yosys_log_shift_offsets.log: generated/out/vanilla.sv | statistics
-# 	DESIGN=$(DESIGNNAME) yosys -Q -c $(CELLIFT_YS)/stat_shift_offsets.ys.tcl -l $@
-# statistics/pmux.log: generated/out/vanilla.sv | statistics
-# 	yosys -s yosys_scripts_unused/pmux_statistics.ys -l $@
-# statistics/regroup_mux.log: generated/out/vanilla.sv | statistics
-# 	yosys -s yosys_scripts_unused/regroup_mux.ys -l $@
-
-
-#
-# Modelsim
-#
-
-# run_vanilla_modelsim: scripts/modelsim.tcl generated/out/vanilla.sv dv/sv/tb_vanilla_top.sv dv/sv/vanilla_top.sv | modelsim traces logs
-# 	cd modelsim; INSTRUMENTATION="vanilla" SIMSRAMTAINT="../taint_data/sram/sram_taint_data.txt" SIMROMTAINT="../taint_data/boot_rom/boot_rom_taint_data.txt" SIMSRAMELF="../sw/sram/sram.o" SIMROMELF="../sw/boot_rom/boot_rom.o" $(MODELSIM_VERSION) vsim -do ../$<; cd ..
-
-# # run_cellift_modelsim should be the most useful modelsim target.
-# run_cellift_modelsim: scripts/modelsim.tcl generated/out/cellift.sv dv/sv/tb_cellift_top.sv dv/sv/cellift_top.sv | modelsim traces logs
-# 	cd modelsim; INSTRUMENTATION="cellift" SIMSRAMTAINT="../taint_data/sram/sram_taint_data.txt" SIMROMTAINT="../taint_data/boot_rom/boot_rom_taint_data.txt" SIMSRAMELF="../sw/sram/sram.o" SIMROMELF="../sw/boot_rom/boot_rom.o" $(MODELSIM_VERSION) vsim -do ../$<; cd ..
