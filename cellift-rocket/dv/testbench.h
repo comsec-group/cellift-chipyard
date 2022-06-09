@@ -90,7 +90,6 @@ class Testbench {
       trace_->flush();
 #endif // VM_TRACE
     }
-    return false;
   }
 
   std::unique_ptr<Module> module_;

@@ -47,12 +47,12 @@ before_instrumentation: generated/out/vanilla.sv
 generated/$(DESIGN_NAME)_axi_to_mem.v: src/$(DESIGN_NAME)_axi_to_mem.sv | generated
 	sv2v $< -w $@
 # Add newline in the end of the file because sv2v does not.
-	sed -i -e '$a\' $@
+	echo  >> $@
 
 generated/$(DESIGN_NAME)_mem_top.v: src/$(DESIGN_NAME)_mem_top.sv | generated
 	sv2v $< -w $@
 # Add newline in the end of the file because sv2v does not.
-	sed -i -e '$a\' $@
+	echo  >> $@
 
 generated/out/vanilla.sv: $(DESIGN_SOURCES_TO_INSTRUMENT) | generated/out
 	cat $^ > $@

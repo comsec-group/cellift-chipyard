@@ -68,7 +68,7 @@ module boom_mem_top #(
   logic        axi4_mem_0_bits_r_bits_last;
 
   ChipTop i_chip_top (
-    .reset_wire_reset(reset_wire_reset),
+    .reset(reset_wire_reset),
     .clock_clock(clock),
 
     .custom_boot(1'b0),
