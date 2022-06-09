@@ -1,9 +1,10 @@
+# Copyright 2022 Flavien Solt, ETH Zurich.
+# Licensed under the General Public License, Version 3.0, see LICENSE for details.
+# SPDX-License-Identifier: GPL-3.0-only
+
 ifeq "" "$(CELLIFT_ENV_SOURCED)"
 $(error Please re-source env.sh first, in the meta repo, and run from there, not this repo. See README.md in the meta repo)
 endif
-
-# Modelsim-specific
-MODELSIM_VERSION ?= questa-2021.2
 
 PYTHON ?= python3
 
@@ -44,9 +45,14 @@ before_instrumentation: generated/out/vanilla.sv
 #
 
 generated/$(DESIGN_NAME)_axi_to_mem.v: src/$(DESIGN_NAME)_axi_to_mem.sv | generated
-	sv2v $< > $@
+	sv2v $< -w $@
+# Add newline in the end of the file because sv2v does not.
+	sed -i -e '$a\' $@
+
 generated/$(DESIGN_NAME)_mem_top.v: src/$(DESIGN_NAME)_mem_top.sv | generated
-	sv2v $< > $@
+	sv2v $< -w $@
+# Add newline in the end of the file because sv2v does not.
+	sed -i -e '$a\' $@
 
 generated/out/vanilla.sv: $(DESIGN_SOURCES_TO_INSTRUMENT) | generated/out
 	cat $^ > $@

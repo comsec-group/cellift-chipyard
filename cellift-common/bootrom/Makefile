@@ -1,3 +1,7 @@
+# Copyright 2022 Flavien Solt, ETH Zurich.
+# Licensed under the General Public License, Version 3.0, see LICENSE for details.
+# SPDX-License-Identifier: GPL-3.0-only
+
 bootrom_img = bootrom.rv64.img bootrom.rv32.img
 bootrom_dump = bootrom.rv64.dump bootrom.rv32.dump
 bootrom_elf = bootrom.rv64.elf bootrom.rv32.elf
