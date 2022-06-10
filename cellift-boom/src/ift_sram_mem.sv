@@ -2,7 +2,7 @@
 // Licensed under the General Public License, Version 3.0, see LICENSE for details.
 // SPDX-License-Identifier: GPL-3.0-only
 
-// Conservative IFT SRAM module.
+// Conservative SRAM module with taints.
 
 module ift_sram_mem #(
   parameter int Width           = 32, // bit

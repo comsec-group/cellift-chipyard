@@ -2,6 +2,8 @@
 // Licensed under the General Public License, Version 3.0, see LICENSE for details.
 // SPDX-License-Identifier: GPL-3.0-only
 
+// Toplevel module with taints.
+
 module top_tiny_soc #(
     parameter int unsigned NumTaints = 1,
 

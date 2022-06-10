@@ -2,6 +2,8 @@
 // Licensed under the General Public License, Version 3.0, see LICENSE for details.
 // SPDX-License-Identifier: GPL-3.0-only
 
+// Exposes a convenient memory interface instead for the core.
+
 module rocket_mem_top #(
   parameter int unsigned ID_WIDTH      = 4,
   parameter int unsigned ADDR_WIDTH    = 32,
