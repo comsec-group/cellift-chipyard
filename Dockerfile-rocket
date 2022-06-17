@@ -1,7 +1,7 @@
 # Base our tests on the tools image
 FROM docker.io/ethcomsec/cellift:cellift-tools-main
-COPY . /cellift-designs/chipyard
-WORKDIR /cellift-designs/chipyard/
+COPY . /cellift-designs/cellift-chipyard
+WORKDIR /cellift-designs/cellift-chipyard/
 RUN bash ./scripts/init-submodules-no-riscv-tools.sh --skip-validate
-WORKDIR /cellift-designs/chipyard/cellift-rocket
+WORKDIR /cellift-designs/cellift-chipyard/cellift-rocket
 CMD bash tests.sh
